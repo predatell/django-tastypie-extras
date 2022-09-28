@@ -4,7 +4,6 @@ Tastypie resource mixins
 from django.core.exceptions import MultipleObjectsReturned
 from tastypie import http
 from tastypie.exceptions import NotFound, BadRequest
-from tastypie.utils.dict import dict_strip_unicode_keys
 
 
 class MultipartResourceMixin(object):
@@ -45,8 +44,7 @@ class MultipartResourceMixin(object):
                                                                 'application/json'))
         deserialized = self.alter_deserialized_detail_data(request,
                                                            deserialized)
-        bundle = self.build_bundle(data=dict_strip_unicode_keys(deserialized),
-                                   request=request)
+        bundle = self.build_bundle(data=deserialized, request=request)
 
         try:
             updated_bundle = self.obj_update(bundle=bundle,
@@ -87,8 +85,7 @@ class MultipartResourceMixin(object):
                                                                 'application/json'))
         deserialized = self.alter_deserialized_detail_data(request,
                                                            deserialized)
-        bundle = self.build_bundle(data=dict_strip_unicode_keys(deserialized),
-                                   request=request)
+        bundle = self.build_bundle(data=deserialized, request=request)
 
         updated_bundle = self.obj_create(bundle,
                                          **self.remove_api_resource_names(kwargs))
